@@ -1,12 +1,8 @@
-<?php
-//dashboard/configuracion.php
-?>
-
 <div class="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 py-8">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="mb-8">
-            <h1 class="text-3xl font-bold text-slate-900 mb-2">Configuración de la Cuenta</h1>
-            <p class="text-slate-600">Personaliza tus preferencias de notificación, apariencia y privacidad</p>
+            <h1 class="text-3xl font-bold text-slate-900 mb-2">Configuración de Intermediario</h1>
+            <p class="text-slate-600">Personaliza tus preferencias de negocio, notificaciones y cuenta</p>
         </div>
 
         <?php if (isset($_SESSION['success_message'])): ?>
@@ -21,7 +17,81 @@
             <?php unset($_SESSION['success_message']); ?>
         <?php endif; ?>
 
-        <form method="POST" action="<?php echo BASE_URL; ?>dashboard/configuracion" class="space-y-8">
+        <form method="POST" action="<?php echo BASE_URL; ?>intermediario/configuracion" class="space-y-8">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="px-6 py-4 border-b border-slate-200 bg-slate-50">
+                    <div class="flex items-center">
+                        <svg class="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                        </svg>
+                        <h2 class="text-xl font-semibold text-slate-900">Información de Negocio</h2>
+                    </div>
+                    <p class="text-sm text-slate-600 mt-1">Actualiza los datos de tu negocio como intermediario</p>
+                </div>
+                <div class="p-6 space-y-4">
+                    <div>
+                        <label for="nombre_negocio" class="block text-sm font-semibold text-slate-900 mb-2">Nombre del Negocio</label>
+                        <input type="text" id="nombre_negocio" name="nombre_negocio" value="<?php echo $intermediario['nombre_negocio'] ?? ''; ?>" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200">
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="direccion" class="block text-sm font-semibold text-slate-900 mb-2">Dirección</label>
+                            <input type="text" id="direccion" name="direccion" value="<?php echo $intermediario['direccion'] ?? ''; ?>" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200">
+                        </div>
+                        
+                        <div>
+                            <label for="telefono_negocio" class="block text-sm font-semibold text-slate-900 mb-2">Teléfono del Negocio</label>
+                            <input type="tel" id="telefono_negocio" name="telefono_negocio" value="<?php echo $intermediario['telefono_negocio'] ?? ''; ?>" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="px-6 py-4 border-b border-slate-200 bg-slate-50">
+                    <div class="flex items-center">
+                        <svg class="w-5 h-5 mr-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <h2 class="text-xl font-semibold text-slate-900">Información Bancaria</h2>
+                    </div>
+                    <p class="text-sm text-slate-600 mt-1">Actualiza los datos para recibir tus comisiones</p>
+                </div>
+                <div class="p-6 space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="entidad_bancaria" class="block text-sm font-semibold text-slate-900 mb-2">Entidad Bancaria</label>
+                            <input type="text" id="entidad_bancaria" name="entidad_bancaria" value="<?php echo $intermediario['entidad_bancaria'] ?? ''; ?>" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200">
+                        </div>
+                        
+                        <div>
+                            <label for="cuenta_bancaria" class="block text-sm font-semibold text-slate-900 mb-2">Número de Cuenta</label>
+                            <input type="text" id="cuenta_bancaria" name="cuenta_bancaria" value="<?php echo $intermediario['cuenta_bancaria'] ?? ''; ?>" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200">
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="tipo_cuenta" class="block text-sm font-semibold text-slate-900 mb-2">Tipo de Cuenta</label>
+                            <select id="tipo_cuenta" name="tipo_cuenta" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 appearance-none bg-white">
+                                <option value="ahorros" <?php echo ($intermediario['tipo_cuenta'] ?? '') === 'ahorros' ? 'selected' : ''; ?>>Cuenta de Ahorros</option>
+                                <option value="corriente" <?php echo ($intermediario['tipo_cuenta'] ?? '') === 'corriente' ? 'selected' : ''; ?>>Cuenta Corriente</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label for="metodo_pago_alt" class="block text-sm font-semibold text-slate-900 mb-2">Método de Pago Alternativo</label>
+                            <select id="metodo_pago_alt" name="metodo_pago_alt" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 appearance-none bg-white">
+                                <option value="">Ninguno</option>
+                                <option value="nequi" <?php echo ($intermediario['metodo_pago_alt'] ?? '') === 'nequi' ? 'selected' : ''; ?>>Nequi</option>
+                                <option value="daviplata" <?php echo ($intermediario['metodo_pago_alt'] ?? '') === 'daviplata' ? 'selected' : ''; ?>>Daviplata</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
                 <div class="px-6 py-4 border-b border-slate-200 bg-slate-50">
                     <div class="flex items-center">
@@ -41,12 +111,30 @@
                                 </svg>
                             </div>
                             <div>
-                                <p class="font-semibold text-slate-900">Alertas de Vencimiento por Email</p>
-                                <p class="text-sm text-slate-600">Recibe recordatorios de SOAT y Tecnomecánica en tu correo</p>
+                                <p class="font-semibold text-slate-900">Alertas de Cotizaciones por Email</p>
+                                <p class="text-sm text-slate-600">Notificaciones cuando tus cotizaciones sean aprobadas o estén por expirar</p>
                             </div>
                         </div>
                         <label class="relative inline-flex items-center cursor-pointer">
-                            <input type="checkbox" name="email_vencimientos" class="sr-only peer" <?php echo ($datos['settings']['notifications']['email_vencimientos'] ?? false) ? 'checked' : ''; ?>>
+                            <input type="checkbox" name="email_cotizaciones" class="sr-only peer" <?php echo ($datos['settings']['notifications']['email_cotizaciones'] ?? true) ? 'checked' : ''; ?>>
+                            <div class="w-11 h-6 bg-slate-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600 peer-focus:ring-4 peer-focus:ring-blue-200"></div>
+                        </label>
+                    </div>
+                    
+                    <div class="flex items-center justify-between py-4">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-slate-900">Notificaciones de Pagos</p>
+                                <p class="text-sm text-slate-600">Recibe alertas cuando se acrediten comisiones a tu cuenta</p>
+                            </div>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" name="email_pagos" class="sr-only peer" <?php echo ($datos['settings']['notifications']['email_pagos'] ?? true) ? 'checked' : ''; ?>>
                             <div class="w-11 h-6 bg-slate-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600 peer-focus:ring-4 peer-focus:ring-blue-200"></div>
                         </label>
                     </div>
@@ -60,7 +148,7 @@
                             </div>
                             <div>
                                 <p class="font-semibold text-slate-900">Promociones y Novedades por Email</p>
-                                <p class="text-sm text-slate-600">Entérate de descuentos y nuevas funciones</p>
+                                <p class="text-sm text-slate-600">Entérate de nuevos productos y oportunidades de negocio</p>
                             </div>
                         </div>
                         <label class="relative inline-flex items-center cursor-pointer">
@@ -173,7 +261,7 @@
                 </div>
             </div>
 
-            <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+           <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
                 <div class="px-6 py-4 border-b border-slate-200 bg-slate-50">
                     <div class="flex items-center">
                         <svg class="w-5 h-5 mr-2 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -189,6 +277,23 @@
                             <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
                                 <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-slate-900">Términos de Intermediario</p>
+                                <p class="text-sm text-slate-600">Revisa los términos y condiciones para intermediarios</p>
+                            </div>
+                        </div>
+                        <a href="#" class="text-blue-600 hover:text-blue-700 font-medium transition-colors">
+                            Ver Documento
+                        </a>
+                    </div>
+                    
+                    <div class="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center">
+                                <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
                                 </svg>
                             </div>
                             <div>
@@ -209,11 +314,28 @@
                                 </svg>
                             </div>
                             <div class="text-left">
-                                <p class="font-semibold text-slate-900">Descargar mis datos</p>
-                                <p class="text-sm text-slate-600">Obtén una copia de toda tu información</p>
+                                <p class="font-semibold text-slate-900">Descargar historial de comisiones</p>
+                                <p class="text-sm text-slate-600">Obtén un informe detallado de tus comisiones</p>
                             </div>
                         </div>
                         <svg class="w-5 h-5 text-slate-400 group-hover:text-slate-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                    
+                    <button type="button" id="cambiarPasswordBtn" class="w-full flex items-center justify-between p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors group">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                                <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path>
+                                </svg>
+                            </div>
+                            <div class="text-left">
+                                <p class="font-semibold text-blue-700">Cambiar contraseña</p>
+                                <p class="text-sm text-blue-600">Actualiza tu contraseña de acceso</p>
+                            </div>
+                        </div>
+                        <svg class="w-5 h-5 text-blue-400 group-hover:text-blue-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                         </svg>
                     </button>
@@ -226,7 +348,7 @@
                                 </svg>
                             </div>
                             <div class="text-left">
-                                <p class="font-semibold text-red-700">Eliminar mi cuenta</p>
+                                <p class="font-semibold text-red-700">Dar de baja cuenta de intermediario</p>
                                 <p class="text-sm text-red-600">Esta acción no se puede deshacer</p>
                             </div>
                         </div>
@@ -251,11 +373,53 @@
     </div>
 </div>
 
+<!-- Modal para cambiar contraseña -->
+<div id="cambiarPasswordModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-lg shadow-xl max-w-md w-full">
+        <div class="px-6 py-4 border-b border-slate-200">
+            <div class="flex items-center justify-between">
+                <h3 class="text-xl font-semibold text-slate-900">Cambiar Contraseña</h3>
+                <button type="button" class="text-slate-400 hover:text-slate-500" id="cerrarPasswordModal">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <form action="<?php echo BASE_URL; ?>intermediario/cambiar_password" method="POST" class="p-6">
+            <div class="space-y-4">
+                <div>
+                    <label for="password_actual" class="block text-sm font-medium text-slate-700 mb-1">Contraseña Actual</label>
+                    <input type="password" id="password_actual" name="password_actual" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <div>
+                    <label for="nueva_password" class="block text-sm font-medium text-slate-700 mb-1">Nueva Contraseña</label>
+                    <input type="password" id="nueva_password" name="nueva_password" required minlength="8" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    <p class="mt-1 text-xs text-slate-500">Mínimo 8 caracteres, debe incluir letras y números</p>
+                </div>
+                <div>
+                    <label for="confirmar_password" class="block text-sm font-medium text-slate-700 mb-1">Confirmar Nueva Contraseña</label>
+                    <input type="password" id="confirmar_password" name="confirmar_password" required minlength="8" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                </div>
+            </div>
+            <div class="mt-6 flex justify-end space-x-3">
+                <button type="button" id="cancelarPasswordBtn" class="px-4 py-2 border border-slate-300 rounded-lg text-slate-700 hover:bg-slate-50">
+                    Cancelar
+                </button>
+                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                    Cambiar Contraseña
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const themeOptions = document.querySelectorAll('input[name="appearance"]');
     const toggleSwitches = document.querySelectorAll('input[type="checkbox"]');
     
+    // Manejo del tema
     themeOptions.forEach(option => {
         option.addEventListener('change', function() {
             const labels = document.querySelectorAll('label[for], label:has(input[name="appearance"])');
@@ -273,6 +437,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    // Manejo de los toggles
     toggleSwitches.forEach(toggle => {
         toggle.addEventListener('change', function() {
             const slider = this.nextElementSibling;
@@ -281,6 +446,54 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+    
+    // Modal de cambio de contraseña
+    const cambiarPasswordBtn = document.getElementById('cambiarPasswordBtn');
+    const cambiarPasswordModal = document.getElementById('cambiarPasswordModal');
+    const cerrarPasswordModal = document.getElementById('cerrarPasswordModal');
+    const cancelarPasswordBtn = document.getElementById('cancelarPasswordBtn');
+    
+    if (cambiarPasswordBtn) {
+        cambiarPasswordBtn.addEventListener('click', function() {
+            cambiarPasswordModal.classList.remove('hidden');
+        });
+    }
+    
+    if (cerrarPasswordModal) {
+        cerrarPasswordModal.addEventListener('click', function() {
+            cambiarPasswordModal.classList.add('hidden');
+        });
+    }
+    
+    if (cancelarPasswordBtn) {
+        cancelarPasswordBtn.addEventListener('click', function() {
+            cambiarPasswordModal.classList.add('hidden');
+        });
+    }
+    
+    // Validación de contraseñas
+    const nuevaPasswordInput = document.getElementById('nueva_password');
+    const confirmarPasswordInput = document.getElementById('confirmar_password');
+    
+    if (confirmarPasswordInput) {
+        confirmarPasswordInput.addEventListener('input', function() {
+            if (this.value !== nuevaPasswordInput.value) {
+                this.setCustomValidity('Las contraseñas no coinciden');
+            } else {
+                this.setCustomValidity('');
+            }
+        });
+    }
+    
+    if (nuevaPasswordInput) {
+        nuevaPasswordInput.addEventListener('input', function() {
+            if (confirmarPasswordInput.value && this.value !== confirmarPasswordInput.value) {
+                confirmarPasswordInput.setCustomValidity('Las contraseñas no coinciden');
+            } else {
+                confirmarPasswordInput.setCustomValidity('');
+            }
+        });
+    }
 });
 </script>
 

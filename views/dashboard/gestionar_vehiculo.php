@@ -1,3 +1,8 @@
+<?php
+//gestionar_vehiculo.php
+?>
+
+
 <?php $v = $datos['vehiculo']; ?>
 
 <div class="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 py-8">

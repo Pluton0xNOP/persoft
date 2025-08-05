@@ -1,3 +1,6 @@
+<?php
+// views/dashboard/perfil.php
+?>
 <div class="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 py-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="mb-8">

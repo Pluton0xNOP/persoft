@@ -1,4 +1,5 @@
 <?php
+// views/dashboard/tramites.php
 $status_map = [
     'Completado' => ['icon' => 'check-circle', 'color' => 'emerald', 'bg' => 'bg-emerald-100', 'text' => 'text-emerald-700'],
     'En Proceso' => ['icon' => 'clock', 'color' => 'blue', 'bg' => 'bg-blue-100', 'text' => 'text-blue-700'],

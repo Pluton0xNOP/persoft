@@ -1,4 +1,5 @@
 <?php
+// models/SettingModel.php
 class SettingModel {
     private function getDefaults() {
         return [

@@ -1,4 +1,5 @@
 <?php
+// controllers/AuthController.php
 class AuthController
 {
     public function login() {

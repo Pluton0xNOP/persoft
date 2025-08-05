@@ -1,4 +1,6 @@
+
 <?php
+// views/dashboard/pagos.php
 $status_classes = [
     'Pagado' => 'bg-emerald-100 text-emerald-800',
     'Pendiente' => 'bg-amber-100 text-amber-800',

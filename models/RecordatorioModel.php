@@ -1,4 +1,5 @@
 <?php
+// models/RecordatorioModel.php
 class RecordatorioModel {
     public function obtenerRecordatoriosPorUsuario($usuario_id) {
         $db = getDB();

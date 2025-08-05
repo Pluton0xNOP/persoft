@@ -1,4 +1,5 @@
 <?php
+// helpers/email_helper.php
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 

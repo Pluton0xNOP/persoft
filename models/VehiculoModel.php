@@ -25,7 +25,60 @@ class VehiculoModel {
         }
         return ['estado' => 'Activa', 'progreso' => $progreso, 'vencimiento' => $vencimiento->format('d/m/Y'), 'dias_restantes' => $diasRestantes];
     }
-
+    public function obtenerVehiculosPorPlaca($placa) {
+    $db = getDB();
+    $vehiculos = [];
+    
+    $stmtVehiculos = $db->prepare("SELECT v.*, u.nombres, u.cedula FROM vehiculos v JOIN usuarios u ON v.usuario_id = u.id WHERE v.placa = ?");
+    $stmtVehiculos->execute([$placa]);
+    
+    foreach ($stmtVehiculos->fetchAll(PDO::FETCH_ASSOC) as $vehiculo) {
+        if ($this->debeActualizarSemaforizacion($vehiculo['id'])) {
+            $this->consultarYGuardarSemaforizacion($db, $vehiculo['id'], $vehiculo['placa']);
+        }
+        
+        $stmtSoat = $db->prepare("SELECT fecha_vencimiento FROM soat WHERE vehiculo_id = ? ORDER BY fecha_vencimiento DESC LIMIT 1");
+        $stmtSoat->execute([$vehiculo['id']]);
+        $soatData = $stmtSoat->fetch(PDO::FETCH_ASSOC);
+        
+        $stmtTecno = $db->prepare("SELECT fecha_vigente FROM revision_tecnico_mecanica WHERE vehiculo_id = ? ORDER BY fecha_vigente DESC LIMIT 1");
+        $stmtTecno->execute([$vehiculo['id']]);
+        $tecnoData = $stmtTecno->fetch(PDO::FETCH_ASSOC);
+        
+        $stmtSemaf = $db->prepare("SELECT SUM(total_tarifa) as total_deuda, GROUP_CONCAT(DISTINCT municipio SEPARATOR ', ') as municipios, MAX(fecha_ultimo_pago) as ultimo_pago FROM semaforizacion WHERE vehiculo_id = ? AND total_tarifa > 0");
+        $stmtSemaf->execute([$vehiculo['id']]);
+        $semafData = $stmtSemaf->fetch(PDO::FETCH_ASSOC);
+        
+        $semaforizacionInfo = ['estado' => 'Al día'];
+        if ($semafData && $semafData['total_deuda'] > 0) {
+            $municipios = $semafData['municipios'] ? explode(', ', $semafData['municipios']) : [];
+            $semaforizacionInfo = ['estado' => 'Pago Pendiente', 'total_deuda' => $semafData['total_deuda'], 'municipios' => $municipios, 'ultimo_pago' => $semafData['ultimo_pago']];
+        }
+        
+        $vehiculos[] = [
+            'id' => $vehiculo['id'], 
+            'usuario_id' => $vehiculo['usuario_id'],
+            'info' => [
+                'placa' => $vehiculo['placa'], 
+                'marca' => $vehiculo['marca'], 
+                'modelo' => $vehiculo['modelo'], 
+                'linea' => $vehiculo['linea'], 
+                'color' => $vehiculo['color'], 
+                'cilindraje' => $vehiculo['cilindraje'], 
+                'tipo' => $vehiculo['clase_vehiculo'] === 'MOTOCICLETA' ? 'Motocicleta' : 'Automóvil'
+            ], 
+            'propietario' => [
+                'nombre' => $vehiculo['nombres'], 
+                'cedula' => $vehiculo['cedula']
+            ], 
+            'soat' => $this->calcularEstadoDocumento($soatData['fecha_vencimiento'] ?? null), 
+            'tecnomecanica' => $this->calcularEstadoDocumento($tecnoData['fecha_vigente'] ?? null), 
+            'semaforizacion' => $semaforizacionInfo
+        ];
+    }
+    
+    return $vehiculos;
+}
     private function consultarYGuardarSemaforizacion($db, $vehiculoId, $placa) {
         $stmtDelete = $db->prepare("DELETE FROM semaforizacion WHERE vehiculo_id = ?");
         $stmtDelete->execute([$vehiculoId]);
